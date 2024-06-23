@@ -22,43 +22,34 @@
 
     </div>
     <a class="navbar-brand font-weight-bold" href="index.html">主页</a>
-    <a class="navbar-brand font-weight-bold" href="javascript:void(0);" onclick=logout()>注销</a>
+    <a class="navbar-brand font-weight-bold" href="javascript:void(0);" onclick="logout()">注销</a>
 
 </nav>
-
-<!--components-->
 
 <section class="my-5 pt-5">
     <div class="container">
         <!-- Jumbotron  -->
-        <br>
-        <br>
         <h2>题目内容</h2>
-        <!--        <div class="row mb-5" id="jumbotron">-->
         <div class="row mb-5">
-            <!--            <div class="col-sm-12">-->
             <div class="col-sm-12">
                 <div class="jumbotron jumbotron-fluid">
                     <div class="container" id="problemDesc">
-                        <!-- <h2>题目标题:</h2> -->
-
+                        <!-- 题目详情将在JavaScript中动态填充 -->
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Forms  -->
-        <h2> 作答提交 </h2>
+        <h2>作答提交</h2>
         <div class="row mb-5" id="forms">
             <div class="col-sm-12">
                 <div class="row mt-4">
                     <div class="col-sm-12 pb-4">
                         <form>
                             <div class="form-group">
-                                <!--                                <label for="codeEditor"></label>-->
                                 <div id="editor" style="min-height:50px">
-                                    <!--                                    <textarea class="form-control" id="codeEditor"-->
-                                    <!--                                              style="width: 100%;  height:400px;"></textarea>-->
+                                    <!-- 代码编辑器将在JavaScript中动态填充 -->
                                 </div>
                             </div>
                         </form>
@@ -66,7 +57,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- Buttons  -->
         <div class="row mb-5" id="buttons">
@@ -79,168 +69,122 @@
             </div>
         </div>
 
-        <!-- Jumbotron  -->
+        <!-- Jumbotron for Result -->
         <h2>评阅结果</h2>
-        <br>
-        <br>
-        <div class="row mb-5" id="jumbotron">
+        <div class="row mb-5" id="resultJumbotron">
             <div class="col-sm-12">
-
                 <div class="jumbotron jumbotron-fluid">
-
-                            <pre>
-                                <div class="container" id="problemResult">
-                                    未批阅
-                                    <p></p>
-                                </div>
-
-
-                            </pre>
-
-
+                    <div class="container" id="problemResult">
+                        <!-- 初始显示未批阅，在JavaScript中动态填充 -->
+                        未批阅
+                        <p></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!--footer-->
+<!-- Footer -->
 <section class="py-5 bg-dark">
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-12 text-center">
-                <!-- <h3>Upgrade to Pro Version</h3>
-                <p class="pt-2">
-                    We are working on <b>Charcoal Pro</b> which will be released soon. The pro version
-                    will have a lot more components, sections, icons, plugins and example pages.
-                    Join the waiting list to get notified when we release it (plus discount code).
-                </p>
-                <a class="btn btn-warning" href="https://wireddots.com/newsletter">Join Waiting List</a>
-                <hr class="my-5"/> -->
                 <p class="pt-2 text-muted">
                     @ 2024
                 </p>
-                <!--footer-->
-                <section class="py-5 bg-dark">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-12 text-center">
-                                <!-- <h3>Upgrade to Pro Version</h3>
-                                <p class="pt-2">
-                                    We are working on <b>Charcoal Pro</b> which will be released soon. The pro version
-                                    will have a lot more components, sections, icons, plugins and example pages.
-                                    Join the waiting list to get notified when we release it (plus discount code).
-                                </p>
-                                <a class="btn btn-warning" href="https://wireddots.com/newsletter">Join Waiting List</a>
-                                <hr class="my-5"/> -->
-                                <p class="pt-2 text-muted">
-                                    <!-- @  by  RAIN 7 这边删掉-->
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            </div>
+        </div>
+    </div>
+</section>
 
-                <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-                <script src="js/app.js"></script>
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/ace/1.2.9/ace.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/ace/1.2.9/ext-language_tools.js"></script>
+<script>
 
-                <script src="https://cdn.bootcdn.net/ajax/libs/ace/1.2.9/ace.js"></script>
-                <script src="https://cdn.bootcdn.net/ajax/libs/ace/1.2.9/ext-language_tools.js"></script>
-                <script>
+    function getProblem() {
+        $.ajax({
+            url: "oj/problems" + location.search,
+            type: "GET",
+            success: function (data, status) {
+                if (data.status === 2000) {
+                    alert("输入的id非法!");
+                }
+                makeProblemDetail(data);
+            },
+            error: function () {
+                alert("服务器异常，获取题目信息失败!");
+            }
+        })
+    }
 
-                    function getProblem() {
-                        $.ajax({
-                            url: "oj/problems" + location.search,
-                            type: "GET",
-                            success: function (data, status) {
-                                if (data.status === 2000) {
-                                    alert("输入的id非法!");
-                                }
-                                makeProblemDetail(data);
-                            },
-                            error: function () {
-                                alert("服务器异常，获取题目信息失败!");
-                            }
-                        })
+    function makeProblemDetail(problem) {
+        // 填充题目详情
+        let problemDesc = document.querySelector("#problemDesc");
+        let h4 = document.createElement("h4");
+        h4.innerHTML = problem.id + ".&nbsp&nbsp&nbsp&nbsp" + problem.title + "&nbsp&nbsp&nbsp&nbsp&nbsp" + problem.level + "<br><br><br>";
+        problemDesc.appendChild(h4);
+
+        let p = document.createElement("p");
+        p.innerHTML = problem.description;
+        problemDesc.appendChild(p);
+
+        // 填充代码编辑器
+        let codeEditor = document.querySelector("#editor");
+        codeEditor.value = problem.template;
+
+        // 给提交按钮注册点击事件
+        let submitButton = document.querySelector("#submitButton");
+        submitButton.onclick = function () {
+            let body = {
+                id: problem.id,
+                code: codeEditor.value
+            };
+            $.ajax({
+                url: "oj/compile",
+                type: "POST",
+                data: JSON.stringify(body),
+                contentType: "application/json;charset=utf8",
+                success: function (data, status) {
+                    let problemResult = document.querySelector("#problemResult");
+                    if (data.error === 0) {
+                        problemResult.innerHTML = data.stdout;
+                    } else {
+                        problemResult.innerHTML = data.reason;
                     }
+                },
+                error: function () {
+                    alert("服务器异常，提交失败!");
+                }
+            })
+        }
+    }
 
-                    function makeProblemDetail(problem) {
-                        //1.获取到problemDesc，把题目详情写进去
-                        let problemDesc = document.querySelector("#problemDesc");
-                        let h4 = document.createElement("h4");
-                        h4.innerHTML = problem.id + ".&nbsp&nbsp&nbsp&nbsp" + problem.title + "&nbsp&nbsp&nbsp&nbsp&nbsp" + problem.level + "<br><br><br>";
-                        problemDesc.appendChild(h4);
+    function logout() {
+        $.ajax({
+            url: "state/logout",
+            type: "POST",
+            success: function (data, status) {
+                if (data.state === 5001) {
+                    alert(data.message);
+                } else if (data.state === 5002) {
+                    alert(data.message);
+                    location.href = "login.html";
+                }
+            },
+            error: function () {
+                alert("注销失败，服务器异常!");
+            }
+        })
+    }
 
-                        let p = document.createElement("p");
-                        p.innerHTML = problem.description;
-                        //   problemDesc.appendChild(p);
-                        let pre = document.createElement("pre");
-                        problemDesc.append(pre);
-                        pre.appendChild(p);
+    getProblem();
 
-                        //2. 把代码的模板填写到代码编辑框中
-                        let codeEditor = document.querySelector("#editor");
-                        codeEditor.value = problem.template;
-                        // editor.setValue(problem.template)
-                        // 0表示填空题型，此处示例
-                        // var protype = 0;
-                        // if (protype == 0) {
-                        // 如果题目类型为填空题，创建一个input元素供用户输入答案
-                        let input = document.createElement("input");
-                        input.type = "text";
-                        input.placeholder = "请输入答案";
-                        codeEditor.appendChild(input);
-                        // } else {
-                        //     // 对于其他类型的题目，可以按照原来的方式处理
-                        //     // editor.setValue(problem.template)
-                        // }
-                        //3. 给提交按钮注册一个点击事件
+</script>
 
-                        let submitButton = document.querySelector("#submitButton");
-                        submitButton.onclick = function () {
-                            // 点击这个按钮，就要进行提交（把编辑框的内容提交到服务器上）
-                            let body = {
-                                id: problem.id,
-                                code: codeEditor.value
-                            };
-                            $.ajax({
-                                url: "oj/compile",
-                                type: "POST",
-                                data: JSON.stringify(body),
-                                contentType: "application/json;charset=utf8",
-                                success: function (data, status) {
-                                    let problemResult = document.querySelector("#problemResult");
-                                    if (data.error === 0) {
-                                        // 编译没有问题
-                                        problemResult.innerHTML = data.stdout;
-                                    } else {
-                                        // 如果编译有问题，就把reason 写到显示界面上
-                                        problemResult.innerHTML = data.reason;
-                                    }
-                                }, error: function (data, status) {
-                                    alert("服务器异常，提交失败!")
-                                }
-                            })
-                        }
-
-                    }
-                    getProblem();
-                    function logout() {
-                        $.ajax({
-                            url: "state/logout",
-                            type: "POST",
-                            success: function (data, status) {
-                                if (data.state === 5001) {
-                                    alert(data.message);
-                                } else if (data.state === 5002) {
-                                    alert(data.message);
-                                    location.href = "login.html";
-                                }
-                            }
-                        })
-                    }
-                </script>
 </body>
 </html>
