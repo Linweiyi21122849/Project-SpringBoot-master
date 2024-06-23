@@ -81,7 +81,7 @@
                 <a class="btn btn-warning" href="https://wireddots.com/newsletter">Join Waiting List</a>
                 <hr class="my-5"/> -->
                 <p class="pt-2 text-muted">
-                    &copy; 2024 RAIN 7
+                    &copy; 2024
                 </p>
             </div>
         </div>
@@ -107,29 +107,6 @@
                     a1.href = "userManage.html";
                     a1.innerHTML = "用户信息管理模块";
                     a1.className = "navbar-brand font-weight-bold";
-=======
-        <!--footer-->
-        <section class="py-5 bg-dark">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-12 text-center">
-                        <!-- <h3>Upgrade to Pro Version</h3>
-                        <p class="pt-2">
-                            We are working on <b>Charcoal Pro</b> which will be released soon. The pro version 
-                            will have a lot more components, sections, icons, plugins and example pages. 
-                            Join the waiting list to get notified when we release it (plus discount code).
-                        </p>
-                        <a class="btn btn-warning" href="https://wireddots.com/newsletter">Join Waiting List</a>
-                        <hr class="my-5"/> -->
-                        <p class="pt-2 text-muted">
-                           <!-- &copy; 2022 RAIN 7 -->
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
->>>>>>> 1ef957de71d5297a7f3144eccfabe80edf0cf80a
-
                     let a2 = document.createElement("a");
                     a2.href = "problemManage.html";
                     a2.innerHTML = "题目信息管理模块";
@@ -158,7 +135,6 @@
         })
     }
 
-<<<<<<< HEAD
     function makeProblemTable(data) {
         // 通过这个函数把数据转换成HTML 片段
         let problemTable = document.querySelector("#problemTable");
@@ -191,40 +167,6 @@
         }
     }
     getProblems();
-=======
-              function makeProblemTable(data){
-                  // 通过这个函数把数据转换成HTML 片段
-                  let problemTable = document.querySelector("#problemTable");
-                    for(let problem of data ){
-
-                        let tr = document.createElement("tr");
-                        let tdId = document.createElement("td");
-
-                        tdId.innerHTML = problem.id;
-                        tr.appendChild(tdId);
-
-                        let tdTitle = document.createElement("td");
-
-                        let a = document.createElement("a");
-
-                        a.innerHTML = problem.title;
-
-                        //TODO 
-                        a.href = "problemDetail.html?id="+problem.id;   //这里加入了一个链接，id=？是用于后续的搜索题目详情
-                        a.target = "_blank";
-
-
-                        tdTitle.appendChild(a);
-                        tr.appendChild(tdTitle);
-
-                        let tdLevel = document.createElement("td");
-                         tdLevel.innerHTML = problem.level;
-                         tr.appendChild(tdLevel);
-
-                         problemTable.appendChild(tr);
-                    }
-
->>>>>>> 1ef957de71d5297a7f3144eccfabe80edf0cf80a
 
     function logout() {
         $.ajax({
