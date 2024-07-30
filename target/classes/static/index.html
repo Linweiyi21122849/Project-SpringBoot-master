@@ -162,15 +162,13 @@
             tdLevel.innerHTML = problem.level;
             tr.appendChild(tdLevel);
             // 创建并添加题目类型列
-            let tdstates = document.createElement("td");
-            tdstates.innerHTML = problem.states;
             let tdtype = document.createElement("td");
-            // tdstates.innerHTML = problem.states;
-            // 测试数据
-            // 可以使用0 1 2 3 4 来表示状态和类别，此处直接写死测试
-            tdtype.innerHTML = "填空题"
-            tdstates.innerHTML = "未完成";
+            tdtype.innerHTML = problem.type;
             tr.append(tdtype);
+            //创建并添加题目状态列
+            let tdstates = document.createElement("td");
+            // tdstates.innerHTML = problem.states;
+            tdstates.innerHTML = "未完成";
             tr.appendChild(tdstates);
             problemTable.appendChild(tr);
         }

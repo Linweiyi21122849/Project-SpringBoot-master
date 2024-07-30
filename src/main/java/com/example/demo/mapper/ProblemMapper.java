@@ -32,6 +32,4 @@ public interface ProblemMapper {
                    @Param("description") String description,
                    @Param("template") String template,
                    @Param("testCode") String testCode);
-
-
 }

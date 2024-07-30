@@ -20,7 +20,7 @@
     </delete>
 
     <select id="selectAll" resultType="com.example.demo.pojo.Problem">
-        select id,title,level from oj_table
+        select id,title,level,type from oj_table
     </select>
 
     <select id="selectOne" resultType="com.example.demo.pojo.Problem">
