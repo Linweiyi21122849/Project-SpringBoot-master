@@ -8,19 +8,10 @@ create table oj_table(
      title varchar(50) not null comment '题目的标题',
      level varchar(20) comment  '题目的难度',
      description varchar(4096) comment '题目描述',
-     template varchar(4096) comment '编程的初始模板',
-     testCode varchar(4096) comment '编程题目的测试用例'
-);
-
-#重新设计题目表
-drop table if exists que_table;
-create table que_table(
-      qno int primary key auto_increment comment '题目的id，自增主键',
-      title varchar(50) not null comment '题目的标题',
-      level varchar(20) comment  '题目的文本难度',
-      description varchar(4096) comment '题目文本描述',
-      type int comment '编程的类型，1表示填空题，2表示选择题，3表示客观题',
-      answer varchar(4096) comment '编程题目的参考答案'
+     template varchar(20) comment '初始模板',
+     testCode varchar(20) comment '测试用例',
+     type int comment '题目的类型，1表示填空题，2表示选择题，3表示客观题',
+     answer varchar(4096) comment '编程题目的参考答案'
 );
 
 #重新设计用户表
@@ -42,5 +33,5 @@ create table vis (
      state int comment '作答状态，1表示正确作答完成，2表示尝试过但做错，3表示尚未作答',
      primary key (user_id, qno),
      foreign key (user_id) references user(id),
-     foreign key (qno) references que_table(qno)
+     foreign key (qno) references oj_table(id)
 );

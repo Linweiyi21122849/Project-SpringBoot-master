@@ -35,13 +35,13 @@ public class ProblemController extends BaseController {
      public String getProblems(@RequestParam(value = "id",required = false) String id) throws ProblemNotFountException, JsonProcessingException {
 
         if(id==null || id.equals("")){// 如果没有参数的话，那么直接查询全部题目
-            List<Problem> list = problemMapper.selectAll();
+            List<Problem> list = problemMapper.selectAll(); //返回所有题目的列表
                 return objectMapper.writeValueAsString(list);//前端接收的是JSON格式的数据，所以要将list转化成 json格式的字符串
         }
 
         // 如果有参数的话，那么查询指定id的题目详情
-        int idString = Integer.parseInt(id);
-        Problem problem = problemMapper.selectOne(idString);
+        int idString = Integer.parseInt(id); // 将 id 转换为整数类型 idString
+        Problem problem = problemMapper.selectOne(idString); //返回特定的题目
 
         if(problem==null){
             throw new ProblemNotFountException();

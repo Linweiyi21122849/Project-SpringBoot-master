@@ -18,7 +18,7 @@ public interface ProblemMapper {
 
     //3、查询所有的题目
     List<Problem>  selectAll();
-
+    
     //4、查询一个题目
     Problem selectOne(@Param("id") int id);
 

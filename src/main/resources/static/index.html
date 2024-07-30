@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>高中生做题平台</title>
+    <title>题谷</title>
     <meta name="description" content="Charcoal is a free Bootstrap 4 UI kit build by @attacomsian at Wired Dots."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Bootstrap 4-->
@@ -10,8 +10,9 @@
 </head>
 <body>
 
+<!--定义一个固定在页面顶部的导航栏，使用Bootstrap类-->
 <nav class="navbar navbar-expand-md navbar-dark fixed-top sticky-navigation" id="nav">
-    <a class="navbar-brand font-weight-bold" href="#">高中生做题平台</a>
+    <a class="navbar-brand font-weight-bold" href="#">题谷——高中生做题平台</a>
 
     <!--            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topMenu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
     <!--                <span class="navbar-toggler-icon"></span>-->
@@ -30,7 +31,7 @@
     <div class="container">
         <div class="row vh-100">
             <div class="col-sm-12 my-auto text-center">
-                <h1>高中生做题平台</h1>
+                <h1>题谷——高中生做题平台</h1>
                 <p class="lead text-capitalize my-4">
                     基于 Java-SpringBoot 搭建的高中生做题平台
                 </p>
@@ -97,7 +98,7 @@
     // 在页面加载的时候，尝试从服务器获取题目列表，通过 ajax 的方式来进行获取
     getUserManageMdel();
     function getUserManageMdel() {
-        // 满足一定的条件要把a标签给加上
+        //通过AJAX请求判断用户是否为管理员，如果是，则动态添加管理模块链接到html中的nav模块。
         $.ajax({
             url: "usermanage/isload",
             type: "POST",
@@ -114,13 +115,14 @@
 
                     let nav = document.querySelector("#nav");
                     nav.appendChild(a1);
-                    nav.appendChild(a2);
+                    nav.appendChild(a2); //将创建的链接元素添加到导航栏中
                 }
                 // 如果不是的话，那么是普通用户，就什么都不做
             }
         })
     }
 
+    //通过AJAX请求获取题目列表，并调用makeProblemTable(data)函数生成表格
     function getProblems() {
         // 1. 通过 ajax 从服务器获取到题目列表
         $.ajax({
@@ -135,14 +137,18 @@
         })
     }
 
+    //生成题目列表的HTML片段
     function makeProblemTable(data) {
         // 通过这个函数把数据转换成HTML 片段
+        //获取页面中 id 为 problemTable 的 <tbody> 元素
         let problemTable = document.querySelector("#problemTable");
         for (let problem of data) {
             let tr = document.createElement("tr");
+            //创建并添加题目 ID 列
             let tdId = document.createElement("td");
             tdId.innerHTML = problem.id;
             tr.appendChild(tdId);
+            //创建并添加题目标题列
             let tdTitle = document.createElement("td");
             let a = document.createElement("a");
             a.innerHTML = problem.title;
@@ -151,10 +157,13 @@
             a.target = "_blank";
             tdTitle.appendChild(a);
             tr.appendChild(tdTitle);
+            // 创建并添加难度列
             let tdLevel = document.createElement("td");
             tdLevel.innerHTML = problem.level;
             tr.appendChild(tdLevel);
+            // 创建并添加题目类型列
             let tdstates = document.createElement("td");
+            tdstates.innerHTML = problem.states;
             let tdtype = document.createElement("td");
             // tdstates.innerHTML = problem.states;
             // 测试数据
@@ -168,11 +177,13 @@
     }
     getProblems();
 
+    // 调用AJAX请求进行注销。
     function logout() {
         $.ajax({
             url: "state/logout",
             type: "POST",
             success: function (data, status) {
+                //弹出一个警告框，显示服务器返回的消息
                 alert(data.message);
                 if (data.state === 5002) {
                     location.href = "login.html";
