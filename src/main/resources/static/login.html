@@ -7,6 +7,16 @@
     <title>登录</title>
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/login.css">
+    <style>
+        .link-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .link-container a {
+            margin: 0 10px; /* 根据需要调整间距 */
+        }
+    </style>
 </head>
 <body>
 <!-- 导航栏 -->
@@ -14,7 +24,7 @@
     <!-- logo -->
     <img src="img/cat.jpg" alt="">
     <!-- 标题 -->
-    <span class="title">高中生做题平台</span>
+    <span class="title">题谷——高中生做题平台</span>
     <!-- 空白的占位符 -->
     <span class="spacer"></span>
     <!-- 右侧的几个链接 -->
@@ -48,12 +58,12 @@
 
         <br>
 
-                <a href="phoneLogin.html" target="_blank" class="a1" style="color:blue;text-decoration: none">&nbsp&nbsp&nbsp&nbsp手机号验证码登陆&nbsp&nbsp&nbsp&nbsp</a>
+                <!-- a href="phoneLogin.html" target="_blank" class="a1" style="color:blue;text-decoration: none">&nbsp&nbsp&nbsp&nbsp手机号验证码登陆&nbsp&nbsp&nbsp&nbsp</a-->
 
-                <a href="register.html" target="_blank" class="a1" style="color:blue;text-decoration: none">&nbsp&nbsp&nbsp&nbsp注册账号&nbsp&nbsp&nbsp&nbsp</a>
-
-                <a href="missPassword.html" target="_blank" class="a1" style="color:blue;text-decoration: none">&nbsp&nbsp&nbsp&nbsp忘记密码&nbsp&nbsp&nbsp&nbsp</a>
-
+        <div class="link-container">
+            <a href="register.html" target="_blank" class="a1" style="color:blue;text-decoration: none">&nbsp&nbsp&nbsp&nbsp注册账号&nbsp&nbsp&nbsp&nbsp</a>
+            <a href="missPassword.html" target="_blank" class="a1" style="color:blue;text-decoration: none">&nbsp&nbsp&nbsp&nbsp忘记密码&nbsp&nbsp&nbsp&nbsp</a>
+        </div>
 
 
 

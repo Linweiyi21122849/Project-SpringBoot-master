@@ -95,12 +95,17 @@ public class ProblemManageController extends BaseController{
     public JsonResult<Void> delete(String id, HttpServletResponse resp) throws DeleteException, IOException {
         JsonResult<Void> result =new JsonResult<>();
 
+        System.out.println("正在删除问题，问题ID: " + id);
+
         if(id==null || id.equals("")){
             result.setMessage("id参数不能为空");
             return result;
         }
-
         int idString = Integer.parseInt(id);
+
+        // 删除与问题关联的记录
+        problemMapper.deleteVisByPId(idString);
+
         int row = problemMapper.delete(idString);
         if(row!=1){
             throw new DeleteException("删除失败");

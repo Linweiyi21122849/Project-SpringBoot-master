@@ -13,6 +13,8 @@ public interface UserMapper {
 
     int insert(User user) ;
 
+    int deleteVisByUserId(@Param("id") int id);
+
     int delete(@Param("id") int id);
 
     List<User> selectAll();

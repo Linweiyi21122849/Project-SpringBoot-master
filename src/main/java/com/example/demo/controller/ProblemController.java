@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+import com.example.demo.pojo.User;
+import javax.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 @RestController
@@ -32,10 +36,25 @@ public class ProblemController extends BaseController {
      * @throws JsonProcessingException
      */
     @RequestMapping(value = "/problems",produces = "application/json;charset=utf-8")
-     public String getProblems(@RequestParam(value = "id",required = false) String id) throws ProblemNotFountException, JsonProcessingException {
+     public String getProblems(@RequestParam(value = "id",required = false) String id, HttpServletRequest request) throws ProblemNotFountException, JsonProcessingException {
+
+        // 获取当前会话，不创建新会话
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            throw new ProblemNotFountException("Session not found. User not logged in.");
+        }
+
+        // 获取会话中的 user 对象
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            throw new ProblemNotFountException("User not found in session.");
+        }
+
+        // 继续使用 user 对象
+//        System.out.println(user.getId());
 
         if(id==null || id.equals("")){// 如果没有参数的话，那么直接查询全部题目
-            List<Problem> list = problemMapper.selectAll(); //返回所有题目的列表
+            List<Problem> list = problemMapper.selectAll_userid(user.getId()); //返回所有题目的列表
                 return objectMapper.writeValueAsString(list);//前端接收的是JSON格式的数据，所以要将list转化成 json格式的字符串
         }
 

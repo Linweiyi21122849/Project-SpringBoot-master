@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>后台-用户信息管理</title>
+    <title>后台-题目信息管理</title>
     <meta name="description" content="Charcoal is a free Bootstrap 4 UI kit build by @attacomsian at Wired Dots." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Bootstrap 4-->
@@ -118,6 +118,34 @@
         })
     }
 
+    function deleteProblem(PId) {
+        if (confirm("确定要删除这个问题吗？")) {
+            $.ajax({
+                url: "problemmanage/delete?id="+PId,
+                type: 'POST',
+                success: function(data) {
+                    alert("删除成功!");
+                    getUserMessages();
+                },
+                error: function() {
+                    alert("删除失败!");
+                }
+            });
+        }
+    }
+
+    function createDeleteTd(PId) {
+        let td = document.createElement("td");
+        let a = document.createElement("a");
+        a.innerHTML = "删除";
+        a.href = "javascript:void(0);"; //防止链接跳转的方法
+        a.onclick = function() {
+            deleteProblem(PId);
+        };
+        td.appendChild(a);
+        return td;
+    }
+
     function makeProblemTable(data){
         // 通过这个函数把数据转换成HTML 片段
         let problemTable = document.querySelector("#problemTable");
@@ -143,12 +171,7 @@
             aUpdate.appendChild(a1);
             tr.appendChild(aUpdate);
 
-            let aDelete = document.createElement("td");
-            let a2 = document.createElement("a");
-            a2.innerHTML="删除";
-            a2.href = "problemmanage/delete?id="+problem.id;
-            aDelete.appendChild(a2);
-            tr.appendChild(aDelete);
+            tr.appendChild(createDeleteTd(problem.id));
 
             problemTable.appendChild(tr);
         }

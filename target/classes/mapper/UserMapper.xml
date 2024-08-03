@@ -19,6 +19,9 @@
         update user set password=#{finalPassword} where username=#{username}
     </update>
 
+    <delete id="deleteVisByUserId" parameterType="int">
+        DELETE FROM vis WHERE user_id = #{id}
+    </delete>
 
     <delete id="delete" >
         delete from user where id=#{id}

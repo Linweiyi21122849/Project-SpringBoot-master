@@ -167,8 +167,8 @@
             tr.append(tdtype);
             //创建并添加题目状态列
             let tdstates = document.createElement("td");
-            // tdstates.innerHTML = problem.states;
-            tdstates.innerHTML = "未完成";
+            tdstates.innerHTML = problem.state;
+            // tdstates.innerHTML = "未完成";
             tr.appendChild(tdstates);
             problemTable.appendChild(tr);
         }

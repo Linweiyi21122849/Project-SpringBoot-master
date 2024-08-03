@@ -10,8 +10,12 @@ create table oj_table(
      description varchar(4096) comment '题目描述',
      template varchar(20) comment '初始模板',
      testCode varchar(20) comment '测试用例',
-     type int comment '题目的类型，1表示填空题，2表示选择题，3表示客观题',
-     answer varchar(4096) comment '编程题目的参考答案'
+     type varchar(20) comment '题目的类型,填空题，选择题，或简答题',
+     answer varchar(4096) comment '编程题目的参考答案',
+     itemA varchar(50) comment '当type==选择题,选项A的描述',
+     itemB varchar(50) comment '当type==选择题,选项B的描述',
+     itemC varchar(50) comment '当type==选择题,选项C的描述',
+     itemD varchar(50) comment '当type==选择题,选项D的描述'
 );
 
 #重新设计用户表
@@ -30,7 +34,7 @@ drop table if exists vis;
 create table vis (
      user_id int comment '用户id，引用自用户表',
      qno int comment '题目序号，引用自题目表',
-     state int comment '作答状态，1表示正确作答完成，2表示尝试过但做错，3表示尚未作答',
+     state varchar(50) comment '作答状态，1表示正确作答完成，2表示尝试过但做错，3表示尚未作答',
      primary key (user_id, qno),
      foreign key (user_id) references user(id),
      foreign key (qno) references oj_table(id)

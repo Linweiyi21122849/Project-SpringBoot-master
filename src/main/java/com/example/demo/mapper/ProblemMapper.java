@@ -16,8 +16,13 @@ public interface ProblemMapper {
     //2、根据id删除题目
      int delete(@Param("id") int id);
 
+    int deleteVisByPId(@Param("id") int id);
+
     //3、查询所有的题目
-    List<Problem>  selectAll();
+    List<Problem> selectAll();
+
+    // 带有可选参数的方法
+    List<Problem> selectAll_userid(@Param("userId") Integer userId);
     
     //4、查询一个题目
     Problem selectOne(@Param("id") int id);

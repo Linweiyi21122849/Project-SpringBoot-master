@@ -16,6 +16,7 @@ public class Problem implements Serializable {
     private String description;
     private String template;
     private String testCode;
-    private int type;
+    private String type;
     private String answer;
+    private String state;
 }

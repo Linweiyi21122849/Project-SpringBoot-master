@@ -15,6 +15,10 @@
                             testCode=#{testCode} where id=#{id}
     </update>
 
+    <delete id="deleteVisByPId" parameterType="int">
+        DELETE FROM vis WHERE qno = #{id}
+    </delete>
+
     <delete id="delete">
         delete from oj_table where id=#{id}
     </delete>
@@ -22,6 +26,14 @@
     <select id="selectAll" resultType="com.example.demo.pojo.Problem">
         select id,title,level,type from oj_table
     </select>
+
+    <select id="selectAll_userid" parameterType="java.lang.Integer" resultType="com.example.demo.pojo.Problem">
+        SELECT oj_table.id, oj_table.title, oj_table.level, oj_table.type,
+               COALESCE(vis.state, '未作答') as state
+        FROM oj_table
+                 LEFT JOIN vis ON oj_table.id = vis.qno AND vis.user_id = #{userId}
+    </select>
+
 
     <select id="selectOne" resultType="com.example.demo.pojo.Problem">
         select * from oj_table where id = #{id}

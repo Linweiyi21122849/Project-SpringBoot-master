@@ -40,6 +40,12 @@ public class UserManageController extends BaseController{
 
         int idString =Integer.parseInt(id.trim());
 
+        // 在终端输出 idString 的值
+        System.out.println("正在删除用户，用户ID: " + idString);
+
+        // 删除与用户关联的记录
+        userMapper.deleteVisByUserId(idString);
+
         int row = userMapper.delete(idString);
         
         if(row!=1){

@@ -181,8 +181,33 @@
 
     }
 
+    function deleteUser(userId) {
+        if (confirm("确定要删除这个用户吗？")) {
+            $.ajax({
+                url: "usermanage/delete?id="+userId,
+                type: 'POST',
+                success: function(data) {
+                    alert("删除成功!");
+                    getUserMessages();
+                },
+                error: function() {
+                    alert("删除失败!");
+                }
+            });
+        }
+    }
 
-
+    function createDeleteTd(userId) {
+        let td = document.createElement("td");
+        let a = document.createElement("a");
+        a.innerHTML = "删除";
+        a.href = "javascript:void(0);"; //防止链接跳转的方法
+        a.onclick = function() {
+            deleteUser(userId);
+        };
+        td.appendChild(a);
+        return td;
+    }
 
     // 使用DOM API 将得到的数据data 写入到页面里面
     function createUserMassages(data) {
@@ -212,18 +237,12 @@
             b.href="userUpdate.html?id="+user.id;
             tdB.appendChild(b);
 
-            let  tdA = document.createElement("td");
-            let  a = document.createElement("a");
-            a.innerHTML="删除";
-            a.href="usermanage/delete?id="+user.id;// 点击发送ajax请求
-            tdA.appendChild(a);
-
             tr.appendChild(tdId);
             tr.appendChild(tdName);
             tr.appendChild(tdPassword);
             tr.appendChild(tdeamil);
             tr.appendChild(tdB);
-            tr.appendChild(tdA);
+            tr.appendChild(createDeleteTd(user.id));
 
 
             userTable.appendChild(tr);
